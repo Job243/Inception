@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  mariadb:
+    build: srcs/requirements/mariadb
+    env_file: .env
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+
+  wordpress:
+    build: srcs/requirements/wordpress
+    env_file: .env
+    volumes:
+      - wp_data:/var/www/html
+    depends_on:
+      - mariadb
+    restart: always
+
+  nginx:
+    image: nginx:alpine
+    container_name: inception-nginx
+    ports:
+      - "8443:443"
+    volumes:
+      - ./srcs/requirements/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+      - wp_data:/var/www/html
+      - ./conf/certs:/etc/ssl/certs
+      - ./conf/certs:/etc/ssl/private
+    depends_on:
+      - wordpress
+    restart: unless-stopped
+
+volumes:
+  db_data:
+  wp_data:
+
