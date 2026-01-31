@@ -36,9 +36,6 @@ Each container has its own Dockerfile and runs in the same Docker network.
 
 ---
 
-## Instructions
-
----
 
 ## Resources
 
@@ -65,9 +62,11 @@ All configurations, scripts, and architectural decisions were implemented manual
 Clone the repository:
 git clone https://github.com/Job243/Inception.git
 cd Inception
+```bash
 make       # Build and start the containers
 make stop  # Stop the containers
 make clean # Remove containers, images, volumes and networks:
+```
 
 
 # Once everything is running, the website is available at:

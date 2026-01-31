@@ -27,5 +27,3 @@ logs:
 
 .PHONY: start all logs delete supp
 
-
-
